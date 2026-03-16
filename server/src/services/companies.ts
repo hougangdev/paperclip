@@ -17,6 +17,7 @@ import {
   heartbeatRunEvents,
   costEvents,
   approvalComments,
+  approvalDecisions,
   approvals,
   activityLog,
   companySecrets,
@@ -40,6 +41,7 @@ export function companyService(db: Db) {
     budgetMonthlyCents: companies.budgetMonthlyCents,
     spentMonthlyCents: companies.spentMonthlyCents,
     requireBoardApprovalForNewAgents: companies.requireBoardApprovalForNewAgents,
+    requiredApprovalCount: companies.requiredApprovalCount,
     brandColor: companies.brandColor,
     logoAssetId: companyLogos.assetId,
     createdAt: companies.createdAt,
@@ -206,6 +208,7 @@ export function companyService(db: Db) {
         await tx.delete(agentRuntimeState).where(eq(agentRuntimeState.companyId, id));
         await tx.delete(issueComments).where(eq(issueComments.companyId, id));
         await tx.delete(costEvents).where(eq(costEvents.companyId, id));
+        await tx.delete(approvalDecisions).where(eq(approvalDecisions.companyId, id));
         await tx.delete(approvalComments).where(eq(approvalComments.companyId, id));
         await tx.delete(approvals).where(eq(approvals.companyId, id));
         await tx.delete(companySecrets).where(eq(companySecrets.companyId, id));
